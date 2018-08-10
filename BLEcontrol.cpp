@@ -5,16 +5,15 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-
 BLECharacteristic *pCharacteristic;
 BLECharacteristic *pCharacteristic1;
 void (*BLEDataProcessing) (std::string);
 
 
-void BLEcontrol::initialize(void parseBLEData(std::string valueFromJoystick))
+void BLEcontrol::initialize(void parseBLEData(std::string valueFromJoystick), std::string SERV_UUID, std::string CHAR_UUID)
 {
+  #define SERVICE_UUID        SERV_UUID
+  #define CHARACTERISTIC_UUID CHAR_UUID
   BLEDataProcessing = parseBLEData;
   BLEDevice::init("MyESP");
   BLEServer *pServer = BLEDevice::createServer();
@@ -44,6 +43,5 @@ void BLEcontrol::onWrite(BLECharacteristic *pCharacteristic)
   std::string valueFromJoystick = pCharacteristic->getValue();
   BLEDataProcessing(valueFromJoystick);
 }
-
 
 
