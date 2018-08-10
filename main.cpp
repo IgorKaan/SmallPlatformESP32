@@ -14,6 +14,8 @@
 #define PIN_BACK_L 26
 #define PIN_ENABLE_L 25
 
+std::string SERV_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+std::string CHAR_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 short x, y, x1, x2;
 uint8_t channel = 0;
 short frequency = 30000;
@@ -34,7 +36,7 @@ void setup()
     Serial.begin(115200);
     DriveCar.setup(PIN_ENABLE_R,PIN_FORWARD_R,PIN_BACK_R,PIN_FORWARD_L,PIN_BACK_L,PIN_ENABLE_L);
     DriveCar.setupMotorDriver(channel,frequency,resolution);
-    Esp32.initialize(parseBLEData);
+    Esp32.initialize(parseBLEData,SERV_UUID,CHAR_UUID);
 }
 
 void parseBLEData(std::string valueFromJoystick)
