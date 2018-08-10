@@ -11,7 +11,7 @@ class BLEcontrol: public BLECharacteristicCallbacks
 {
     public:
     void onWrite(BLECharacteristic *pCharacteristic); 
-    void initialize(void parseBLEData(std::string valueFromJoystick));
+    void initialize(void parseBLEData(std::string valueFromJoystick), std::string SERV_UUID, std::string CHAR_UUID);
 };
 
 #endif
