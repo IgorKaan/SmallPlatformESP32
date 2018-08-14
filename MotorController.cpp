@@ -60,6 +60,6 @@ void MotorController::rotation(motor* motorStruct, short v)
 // контроль вращения двигателем на основе данных с джойстика
 void MotorController::controlByJoystick(short x1, short x2)
 {
-	rotation(MotorRight, x2 - x1);
-	rotation(MotorLeft, x2 + x1);
+	rotation(MotorRight, x2 + x1);
+	rotation(MotorLeft, x2 - x1);
 }
