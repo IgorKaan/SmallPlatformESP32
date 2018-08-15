@@ -16,16 +16,19 @@
 
 std::string SERV_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 std::string CHAR_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
-short x, y, x1, x2;
-uint8_t channel = 0;
-short frequency = 30000;
-uint8_t resolution = 8;
 std::string valueFromJoystick;
 std::string valuex;
 std::string valuey;
+
+short x, y, x1, x2;
+short frequency = 30000;
 short xCoord;
 short yCoord;
+
+uint8_t resolution = 8;
+uint8_t channel = 0;
 uint8_t splitindex;
+
 BLEcontrol Esp32;
 MotorController DriveCar;
 void driveMotor(short, short);
@@ -50,9 +53,11 @@ void parseBLEData(std::string valueFromJoystick)
 }
 void driveMotor(short x1,short x2)
 {
-    x = map(x1, 0, 4095, -100, 100);
-    y = map(x2, 0, 4095, -100, 100);
+    x = map(x1, 0, 4095, -2000, 2000);
+    y = map(x2, 0, 4095, -2000, 2000);
     DriveCar.controlByJoystick(x,y);
+    Serial.println(x);
+    Serial.println(y);
 }   
 
 void loop()
