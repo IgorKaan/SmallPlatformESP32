@@ -25,9 +25,12 @@ short frequency = 30000;
 short xCoord;
 short yCoord;
 
-uint8_t resolution = 8;
-uint8_t channel = 0;
+uint8_t resolution = 11;
 uint8_t splitindex;
+uint8_t channel_R = 0;
+uint8_t channel_L = 1;
+
+float reduceSpeed = 1.4;
 
 BLEcontrol Esp32;
 MotorController DriveCar;
@@ -37,8 +40,8 @@ void parseBLEData(std::string valueFromJoystick);
 void setup()
 {
     Serial.begin(115200);
-    DriveCar.setup(PIN_ENABLE_R,PIN_FORWARD_R,PIN_BACK_R,PIN_FORWARD_L,PIN_BACK_L,PIN_ENABLE_L);
-    DriveCar.setupMotorDriver(channel,frequency,resolution);
+    DriveCar.setup(PIN_ENABLE_R,PIN_FORWARD_R,PIN_BACK_R,PIN_FORWARD_L,PIN_BACK_L,PIN_ENABLE_L, channel_R, channel_L);
+    DriveCar.setupMotorDriver(channel_R, channel_L, frequency, resolution);
     Esp32.initialize(parseBLEData,SERV_UUID,CHAR_UUID);
 }
 
@@ -55,7 +58,7 @@ void driveMotor(short x1,short x2)
 {
     x = map(x1, 0, 4095, -2000, 2000);
     y = map(x2, 0, 4095, -2000, 2000);
-    DriveCar.controlByJoystick(x,y);
+    DriveCar.controlByJoystick(x,y,reduceSpeed);
     Serial.println(x);
     Serial.println(y);
 }   
