@@ -21,16 +21,17 @@ std::string valuex;
 std::string valuey;
 
 short x, y, x1, x2;
-short frequency = 30000;
+short frequency = 50;
 short xCoord;
 short yCoord;
 
-uint8_t resolution = 11;
+uint8_t resolution = 10;
 uint8_t splitindex;
 uint8_t channel_R = 0;
 uint8_t channel_L = 1;
 
-float reduceSpeed = 1.4;
+float reduceSpeed = 1.25;
+float reduceSpeedSide = 1.5;
 
 BLEcontrol Esp32;
 MotorController DriveCar;
@@ -56,11 +57,11 @@ void parseBLEData(std::string valueFromJoystick)
 }
 void driveMotor(short x1,short x2)
 {
-    x = map(x1, 0, 4095, -2000, 2000);
-    y = map(x2, 0, 4095, -2000, 2000);
-    DriveCar.controlByJoystick(x,y,reduceSpeed);
-    Serial.println(x);
-    Serial.println(y);
+    x = map(x1, 0, 4095, -1000, 1000);
+    y = map(x2, 0, 4095, -1000, 1000);
+    DriveCar.controlByJoystick(x,y,reduceSpeed,reduceSpeedSide);
+    //Serial.println(x);
+    //Serial.println(y);
 }   
 
 void loop()
